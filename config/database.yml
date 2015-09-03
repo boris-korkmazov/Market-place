@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: marketplace_development
+
+test:
+  <<: *default
+  database: marketplace_test
+
+production:
+  <<: *default
+  database: marketplace_production
+  username: marketplace
+  password: <%= ENV['MARKETPLACE_DATABASE_PASSWORD'] %>
