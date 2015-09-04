@@ -28,6 +28,7 @@ gem 'active_link_to'
 
 gem 'carrierwave'
 
+gem 'launchy'
 
 group :development, :test do
 
@@ -54,6 +55,8 @@ group :test do
   gem 'capybara'
 
   gem 'poltergeist'
+
+  gem 'selenium-webdriver'
 
   gem 'shoulda-matchers'
 

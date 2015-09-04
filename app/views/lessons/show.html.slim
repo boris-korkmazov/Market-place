@@ -1,20 +1,55 @@
 - provide(:title, @lesson.title)
+div[data-ng-controller='LessonsController' data-ng-init="lessonId = #{@lesson.id}"]
+  .row
+    .col-md-4.col-md-offset-4
+      h1
+        = @lesson.title
 
-.row
-  .col-md-4.col-md-offset-4
-    h1
-      = @lesson.title
+  .row
+    .col-md-4.col-md-offset-4
+      = @lesson.description
 
-.row
-  .col-md-4.col-md-offset-4
-    = @lesson.description
+  .row
+    .col-md-4.col-md-offset-4
+      video[controls="controls" src="#{@lesson.video}"]
 
-.row
-  .col-md-4.col-md-offset-4
-    video[controls="controls" src="#{@lesson.video}"]
+  .row
+    .col-md-4.col-md-offset-4
+      | Author #{@lesson.user.email}
+      br
+      | Created at: #{@lesson.created_at}
 
-.row
-  .col-md-4.col-md-offset-4
-    | Author #{@lesson.user.email}
-    br
-    | Created at: #{@lesson.created_at}
+  .row
+    .col-md-4.col-md-offset-4
+      - if not_owner @lesson
+        div
+          button#like[class='btn btn-default btn-xs' data-ng-click='upLike()']
+            | Like
+        div
+          button#dislike[class='btn btn-default btn-xs' data-ng-click='downLike()']
+            | Dislike
+      #count[data-ng-init="likes=#{@lesson.likes}"]
+        | likes {{likes}}
+
+  - @lesson.comments.each do |comment|
+    -if comment.persisted?
+      .row
+        .col-md-2.col-md-offset-4
+          | Name: #{comment.name}
+      .row
+        .col-md-2.col-md-offset-4
+          | Comment: #{comment.body}
+  .row
+    .col-md-4.col-md-offset-4
+      = simple_form_for [@lesson, @comment], wrapper: 'vertical_form_custom' do |f|
+        .form-inputs
+          -unless user_signed_in?
+            = f.input :name
+            div.help-block
+              =f.error :name
+          = f.input :body, label: 'Comment'
+          div.help-block
+            =f.error :body
+        .form-actions
+          = f.button :submit, 'Send'
+

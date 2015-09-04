@@ -3,6 +3,9 @@ en:
     messages:
       extension_white_list_error: "Wrong format. Acceptable formats are OGV, MP4"
   activerecord:
+    attributes:
+      comment:
+        body: 'Comment'
     errors:
       messages:
         blank: "%{attribute} can't be blank"
@@ -10,5 +13,6 @@ en:
         too_short: '%{attribute} length should be more than %{count} characters'
         confirmation: '%{attribute} confirmation should match %{attribute}'
         taken: 'Email has already been taken'
+
 
 

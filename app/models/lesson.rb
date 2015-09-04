@@ -2,6 +2,8 @@ class Lesson < ActiveRecord::Base
 
   belongs_to :user
 
+  has_many :comments
+
   validates :title, :description, :video, presence: true
 
   mount_uploader :video, VideoUploader

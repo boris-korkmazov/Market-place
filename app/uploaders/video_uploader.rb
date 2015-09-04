@@ -44,7 +44,7 @@ class VideoUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
    def filename
-     Digest::MD5.hexdigest(Time.now.to_s) + original_filename
+     Digest::MD5.hexdigest(Time.now.to_s) + original_filename if original_filename
    end
 
 end
