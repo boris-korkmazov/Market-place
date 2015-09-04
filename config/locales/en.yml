@@ -6,5 +6,6 @@ en:
         invalid: '%{attribute} is invalid'
         too_short: '%{attribute} length should be more than %{count} characters'
         confirmation: '%{attribute} confirmation should match %{attribute}'
+        taken: 'Email has already been taken'
 
 

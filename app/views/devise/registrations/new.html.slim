@@ -1,20 +1,36 @@
+- provide(:title, 'Sign Up')
 .row
   .col-md-4.col-md-offset-4
     h2
       | Sign up
 
-.row
+.row[data-ng-controller='SignUpController']
   .col-md-4.col-md-offset-4
-    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), wrapper: 'vertical_form_custom') do |f|
+    = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {name: :sign_up_form, novalidate: 'novalidate'}, wrapper: 'vertical_form_custom') do |f|
       .form-inputs
-        = f.input :email, required: true, autofocus: true
-        .help-block
+        = f.input :email, required: true, autofocus: true, input_html: {'ng-model'=>"user['email']", uniq: 'uniq', attribute: 'email'}
+        .help-block[data-ng-hide="sign_up_form['user[email]'].$dirty"]
           =f.error :email
-        = f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
-        .help-block
+        div[data-ng-show="sign_up_form['user[email]'].$touched"]
+          .help-block[data-ng-show="sign_up_form['user[email]'].$error.required"]
+            = t('activerecord.errors.messages.blank', attribute: 'Email')
+          .help-block[data-ng-show="sign_up_form['user[email]'].$error.uniq"]
+            = t('activerecord.errors.messages.taken')
+          .help-block[data-ng-show="sign_up_form['user[email]'].$error.email"]
+            = t('activerecord.errors.messages.invalid', attribute: 'Email')
+        = f.input :password, required: true, input_html: {'data-ng-minlength'=>8, 'ng-model'=>"user['password']"}, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length)
+        .help-block[data-ng-hide="sign_up_form['user[password]'].$dirty"]
           =f.error :password
-        = f.input :password_confirmation, label: 'Confirm your password', required: true
-        .help-block
+        div[data-ng-show="sign_up_form['user[password]'].$touched"]
+          .help-block[data-ng-show="sign_up_form['user[password]'].$error.required"]
+            = t('activerecord.errors.messages.blank', attribute: 'Password')
+          .help-block[data-ng-show="sign_up_form['user[password]'].$error.minlength"]
+            = t('activerecord.errors.messages.too_short', attribute: 'Password', count: 8)
+        = f.input :password_confirmation, input_html:{'compare-to' => "user['password']", 'ng-model'=>"user['password_confirmation']"}, label: 'Confirm your password', required: true
+        .help-block[data-ng-hide="sign_up_form['user[password_confirmation]'].$dirty"]
           =f.error :password_confirmation
+        div[data-ng-show="sign_up_form['user[password_confirmation]'].$touched"]
+          .help-block[data-ng-show="sign_up_form['user[password_confirmation]'].$error.required || sign_up_form['user[password_confirmation]'].$error.compare"]
+            = t('activerecord.errors.messages.confirmation', attribute: 'Password')
       .form-actions
-        = f.button :submit, "Send"
+        = f.button :submit, "Send", 'data-ng-disabled'=> 'sign_up_form.$invalid || sign_up_form.$pristine'
