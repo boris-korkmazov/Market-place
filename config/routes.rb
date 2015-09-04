@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :users do
     get :validate, on: :collection
   end
+
+  resources :lessons
 end

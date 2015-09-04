@@ -1,0 +1,20 @@
+- provide(:title, @lesson.title)
+
+.row
+  .col-md-4.col-md-offset-4
+    h1
+      = @lesson.title
+
+.row
+  .col-md-4.col-md-offset-4
+    = @lesson.description
+
+.row
+  .col-md-4.col-md-offset-4
+    video[controls="controls" src="#{@lesson.video}"]
+
+.row
+  .col-md-4.col-md-offset-4
+    | Author #{@lesson.user.email}
+    br
+    | Created at: #{@lesson.created_at}

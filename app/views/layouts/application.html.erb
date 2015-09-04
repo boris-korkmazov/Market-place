@@ -7,20 +7,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="navbar navbar-default navbar-inverse navbar-static-top">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <%= link_to 'MarketPlace', root_path, class:"navbar-brand" %>
+          <button class="navbar-toggle" data-target="#navbar-ex-collapse" data-toggle="collapse" type="button"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a href="<%= root_path%>"class="navbar-brand"><span>MakerPlace</span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-ex-collapse">
           <ul class="nav navbar-nav navbar-right">
             <% if user_signed_in? %>
+                <li>
+                  <%= active_link_to 'Publish new lesson', new_lesson_path %>
+                </li>
                 <li>
                   <%= active_link_to 'Sign Out', destroy_user_session_path, method: :delete %>
                 </li>
@@ -36,13 +33,21 @@
         </div>
       </div>
     </div>
-    <div class="container">
-        <p class="notice alert-success"><%= notice %></p>
-        <p class="alert alert-warning"><%= alert %></p>
+    <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+              <% if notice %>
+                <p class="notice alert alert-success"><%= notice %></p>
+              <%end%>
+              <% if alert %>
+                <p class="alert alert-warning"><%= alert %></p>
+              <%end%>
+            </div>
+          </div>
 
-        <section>
             <%= yield %>
-        </section>
-    </div>
+        </div>
+    </section>
 </body>
 </html>

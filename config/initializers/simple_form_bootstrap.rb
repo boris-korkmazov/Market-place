@@ -43,6 +43,17 @@ SimpleForm.setup do |config|
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
+  config.wrappers :vertical_file_input_custom, tag: 'div', class: 'form-group', error_class: '' do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :readonly
+    b.use :label, class: 'control-label'
+
+    b.use :input
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
+
   config.wrappers :vertical_boolean, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
@@ -153,7 +164,7 @@ SimpleForm.setup do |config|
   config.wrapper_mappings = {
     check_boxes: :vertical_radio_and_checkboxes,
     radio_buttons: :vertical_radio_and_checkboxes,
-    file: :vertical_file_input,
+    file: :vertical_file_input_custom,
     boolean: :vertical_boolean,
     datetime: :multi_select,
     date: :multi_select,

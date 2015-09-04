@@ -26,6 +26,9 @@ gem 'simple_form'
 
 gem 'active_link_to'
 
+gem 'carrierwave'
+
+
 group :development, :test do
 
   gem 'byebug'

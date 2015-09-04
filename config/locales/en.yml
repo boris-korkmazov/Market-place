@@ -1,4 +1,7 @@
 en:
+  errors:
+    messages:
+      extension_white_list_error: "Wrong format. Acceptable formats are OGV, MP4"
   activerecord:
     errors:
       messages:
