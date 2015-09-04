@@ -24,6 +24,8 @@ gem 'devise'
 
 gem 'simple_form'
 
+gem 'active_link_to'
+
 group :development, :test do
 
   gem 'byebug'
